@@ -35,7 +35,7 @@ def import_and_predict(image_data,model):
     img, expanded_img = resize_img(image)
     string = "OUTPUT: " + str(img.shape)
     st.success(string)
-    prediction = model.predict(expanded_img)[0]
+    prediction = model.predict(img)
     return prediction
 if file is None:
     st.text("Please upload an image file")
