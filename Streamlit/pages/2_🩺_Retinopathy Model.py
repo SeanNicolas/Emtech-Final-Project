@@ -30,7 +30,6 @@ def import_and_predict(image_data,model):
     # Convert image to array and normalize
     x = img_to_array(image_resized) / 255.0
     # Add batch dimension
-    x = np.expand_dims(x, axis=0)
     # Make prediction
     prediction = model.predict(x)
     return prediction
