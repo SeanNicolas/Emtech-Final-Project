@@ -23,7 +23,7 @@ file=st.file_uploader("Choose retina image from computer",type=["jpg","png", "jp
 
 def import_and_predict(image_data,model):
     try:
-        size = (50, 50)
+        size = (100, 100)
         image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
         img = np.asarray(image)
         if img.shape[2] == 4:  # Handle images with an alpha channel
