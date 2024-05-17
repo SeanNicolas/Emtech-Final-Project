@@ -14,12 +14,15 @@ st.sidebar.success("Select a Page")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('final_model.h5')
+  model=tf.keras.models.load_model('Streamlit/pages/final_model.h5')
   return model
+    
 model=load_model()
+
 st.write("""
 # Diabetic Retinopathy Detection System"""
 )
+
 file = st.file_uploader("Choose retina image from computer",type=["jpg","png","jpeg"])
 
 
@@ -35,7 +38,7 @@ def import_and_predict(image_data,model):
     img, expanded_img = resize_img(image)
     string = "OUTPUT: " + str(img.shape)
     st.success(string)
-    prediction = model.predict(img)
+    prediction = model.predict(expanded_img)
     return prediction
 if file is None:
     st.text("Please upload an image file")
@@ -43,7 +46,7 @@ else:
     #image=Image.open(file).convert("RGB")
     image = load_img(file)
     st.image(image,use_column_width=True)
-    prediction=import_and_predict(image,model)
+    prediction = import_and_predict(image, model)
     class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
     final_prediction = np.argmax(prediction)
     string = "OUTPUT: " + str(prediction)
