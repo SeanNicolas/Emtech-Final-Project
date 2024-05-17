@@ -33,17 +33,12 @@ st.write("""
 file = st.file_uploader("Choose retina image from computer", type=["jpg", "png"])
 
 def import_and_predict(image_data, model):
-    try:
-        size = (50, 50)
-        image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
-        img = np.array(image)
-        img_reshape = img[np.newaxis, ...]
-        prediction = model.predict(img_reshape)
-        return prediction
-    except Exception as e:
-        st.error("Error processing the image. Please check if the image is valid.")
-        st.error(str(e))
-        return None
+    size = (50, 50)
+    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
+    img = np.array(image)
+    img_reshape = img[np.newaxis, ...]
+    prediction = model.predict(img_reshape)
+    return prediction
 
 if file is None:
     st.text("Please upload an image file")
