@@ -22,18 +22,14 @@ st.write("""
 file=st.file_uploader("Choose retina image from computer",type=["jpg","png", "jpeg"])
 
 def import_and_predict(image_data,model):
-    try:
-        size = (150, 150)
-        image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
-        img = np.asarray(image)
-        if img.shape[2] == 4:  # Handle images with an alpha channel
-            img = img[:, :, :3]
-        img_reshape = img[np.newaxis, ...]
-        prediction = model.predict(img_reshape)
-        return prediction
-    except Exception as e:
-        st.error(f"Error in prediction: {e}")
-        return None
+    size = (150, 150)
+    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
+    img = np.asarray(image)
+    if img.shape[2] == 4:  # Handle images with an alpha channel
+        img = img[:, :, :3]
+    img_reshape = img[np.newaxis, ...]
+    prediction = model.predict(img_reshape)
+    return prediction
 if file is None:
     st.text("Please upload an image file")
 else:
