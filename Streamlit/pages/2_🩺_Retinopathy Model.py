@@ -25,39 +25,71 @@ st.write("""
 
 file = st.file_uploader("Choose retina image from computer",type=["jpg","png","jpeg"])
 
-
-def resize_img(file):
-    img = np.array(file)
-    if img is None:
-        return None, None
-    resized = cv2.resize(img, (50, 50))
-    expanded = resized[np.newaxis, ...]
-    return resized, expanded
-
 def import_and_predict(image_data,model):
-    img, expanded_img = resize_img(image)
-    string = "OUTPUT: " + str(img.shape)
-    st.success(string)
-    prediction = model.predict(expanded_img)
+    size=(50,50)
+    image=ImageOps.fit(image_data,size,Image.Resampling.LANCZOS)
+    img=np.asarray(image)
+    img_reshape=img[np.newaxis,...]
+    prediction=model.predict(img_reshape)
     return prediction
 if file is None:
     st.text("Please upload an image file")
 else:
-    #image=Image.open(file).convert("RGB")
-    image = load_img(file)
+    image = Image.open(file).convert("RGB")
     st.image(image,use_column_width=True)
-    prediction = import_and_predict(image, model)
-    class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
-    final_prediction = np.argmax(prediction)
-    string = "OUTPUT: " + str(prediction)
+    prediction=import_and_predict(image,model)
+    class_names=['0','1']
+    string="OUTPUT : "+class_names[np.argmax(prediction)]
     st.success(string)
-    # if final_prediction > 0.3:
-    #     string = "OUTPUT: " + class_names[1]
-    #     st.success(string)
-    # else:
-    #     string = "OUTPUT: " + class_names[0]
-    #     st.success(string)
-        
+
+
+
+
+
+
+
+
+
+
+# def resize_img(file):
+#     img = np.array(file)
+#     if img is None:
+#         return None, None
+#     resized = cv2.resize(img, (50, 50))
+#     expanded = resized[np.newaxis, ...]
+#     return resized, expanded
+
+# def import_and_predict(image_data,model):
+#     img, expanded_img = resize_img(image)
+#     string = "OUTPUT: " + str(img.shape)
+#     st.success(string)
+#     prediction = model.predict(expanded_img)
+#     return prediction
+# if file is None:
+#     st.text("Please upload an image file")
+# else:
+#     #image=Image.open(file).convert("RGB")
+#     image = load_img(file)
+#     st.image(image,use_column_width=True)
+#     prediction = import_and_predict(image, model)
+#     class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
+#     final_prediction = np.argmax(prediction)
+#     string = "OUTPUT: " + str(prediction)
+#     st.success(string)
+#     # if final_prediction > 0.3:
+#     #     string = "OUTPUT: " + class_names[1]
+#     #     st.success(string)
+#     # else:
+#     #     string = "OUTPUT: " + class_names[0]
+#     #     st.success(string)
+
+
+
+
+
+
+
+
 # from tensorflow.keras.preprocessing.image import ImageDataGenerator
 # import scipy as sc
 
