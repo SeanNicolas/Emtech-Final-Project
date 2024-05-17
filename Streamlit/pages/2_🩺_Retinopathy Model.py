@@ -3,6 +3,7 @@ import tensorflow as tf
 import cv2
 from PIL import Image,ImageOps
 import numpy as np
+from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
 st.set_page_config(
     page_title= "Retinopathy",
@@ -21,11 +22,15 @@ st.write("""
 )
 file = st.file_uploader("Choose retina image from computer",type=["jpg","png","jpeg"])
 
+file_datagen = ImageDataGenerator(rescale=1./255)
+
+
 def import_and_predict(image_data,model):
     size = (50, 50)
     image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
-    img = np.asarray(image)
-    prediction = model.predict(img)
+    x = img_to_array(image)
+    new_image = file_datagen.flow(x, batch_size=1)
+    prediction = model.predict(new_image)
     return prediction
 if file is None:
     st.text("Please upload an image file")
