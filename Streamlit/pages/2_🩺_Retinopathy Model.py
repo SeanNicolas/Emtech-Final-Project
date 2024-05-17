@@ -21,19 +21,41 @@ file=st.file_uploader("Choose retina image from computer",type=["jpg","png"])
 import cv2
 from PIL import Image,ImageOps
 import numpy as np
-def import_and_predict(image_data,model):
-    size=(150,150)
-    image=ImageOps.fit(image_data,size,Image.ANTIALIAS)
-    img=np.asarray(image)
-    img_reshape=img[np.newaxis,...]
-    prediction=model.predict(img_reshape)
+# def import_and_predict(image_data,model):
+#     size=(150,150)
+#     image=ImageOps.fit(image_data,size,Image.ANTIALIAS)
+#     img=np.asarray(image)
+#     img_reshape=img[np.newaxis,...]
+#     prediction=model.predict(img_reshape)
+#     return prediction
+# if file is None:
+#     st.text("Please upload an image file")
+# else:
+#     image=Image.open(file)
+#     st.image(image,use_column_width=True)
+#     prediction=import_and_predict(image,model)
+#     class_names=['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
+#     string="OUTPUT : "+class_names[np.argmax(prediction)]
+#     st.success(string)
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+import scipy
+new_shape = (150,150,3)
+IMAGE_HEIGHT = 150
+IMAGE_WIDTH = 150
+
+
+def import_and_predict(image, model):
+    X_data_resized = [scipy.misc.imresize(image, new_shape) for image in X_data]
+    img = np.asarray(X_data_resized)
+    img_reshape = img[np.newaxis,...]
+    prediction = model.predict(img_reshape)
     return prediction
 if file is None:
     st.text("Please upload an image file")
 else:
-    image=Image.open(file)
+    Image = Image.open(file)
     st.image(image,use_column_width=True)
-    prediction=import_and_predict(image,model)
+    prediction = import_and_predict(image,model)
     class_names=['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
     string="OUTPUT : "+class_names[np.argmax(prediction)]
     st.success(string)
