@@ -27,7 +27,7 @@ def resize_img(file):
     img = np.array(file)
     if img is None:
         return None, None
-    resized = cv2.resize(img, (150, 150))
+    resized = cv2.resize(img, (50, 50))
     expanded = resized[np.newaxis, ...]
     return resized, expanded
 
