@@ -30,7 +30,8 @@ def import_and_predict(image_data,model):
             img = img[:, :, :3]
         img_reshape = img[np.newaxis, ...]
         prediction = model.predict(img_reshape)
-        return prediction
+        real_prediction = np.argmax(prediction)
+        return real_prediction
     except Exception as e:
         st.error(f"Error in prediction: {e}")
         return None
