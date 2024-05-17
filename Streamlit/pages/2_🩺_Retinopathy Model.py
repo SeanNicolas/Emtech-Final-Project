@@ -26,7 +26,7 @@ file_datagen = ImageDataGenerator(rescale=1./255)
 
 
 def import_and_predict(image_data,model):
-    prediction = model.predict(x)
+    prediction = model.predict(image)
     return prediction
 if file is None:
     st.text("Please upload an image file")
