@@ -33,6 +33,8 @@ def resize_img(file):
 
 def import_and_predict(image_data,model):
     img, expanded_img = resize_img(image)
+    string = "OUTPUT: " + str(expanded_img.shape)
+    st.success(string)
     prediction = model.predict(expanded_img)[0]
     return prediction
 if file is None:
