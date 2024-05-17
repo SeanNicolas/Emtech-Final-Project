@@ -1,0 +1,4 @@
+Tensorflow
+opencv-python-headless
+st_pages>=0.4.3
+streamlit>=1.25.0
