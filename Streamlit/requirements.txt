@@ -2,5 +2,5 @@ streamlit
 tensorflow
 opencv-python-headless
 scipy
-
+numpy
 
