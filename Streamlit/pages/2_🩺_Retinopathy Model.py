@@ -24,7 +24,7 @@ file = st.file_uploader("Choose retina image from computer",type=["jpg","png","j
 
 
 def resize_img(file):
-    img = cv2.imread(file)
+    img = np.array(file)
     if img is None:
         return None, None
     resized = cv2.resize(img, (150, 150))
