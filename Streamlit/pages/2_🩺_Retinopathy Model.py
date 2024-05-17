@@ -45,7 +45,6 @@ if file is None:
 else:
     image = Image.open(file).convert("RGB")
     st.image(image, use_column_width=True)
-    image = np.array(image)
     prediction = import_and_predict(image, model)
     if prediction is not None:
         class_names = ['No DR', 'DR']
