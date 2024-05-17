@@ -29,6 +29,7 @@ def import_and_predict(image_data,model):
     size = (50, 50)
     image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
     x = img_to_array(image)
+    x = x.reshape((1,) + x.shape)
     new_image = file_datagen.flow(x, batch_size=1)
     prediction = model.predict(new_image)
     return prediction
