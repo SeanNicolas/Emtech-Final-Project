@@ -22,11 +22,18 @@ st.write("""
 )
 file = st.file_uploader("Choose retina image from computer",type=["jpg","png","jpeg"])
 
-file_datagen = ImageDataGenerator(rescale=1./255)
 
+def resize_img(file):
+    img = cv2.imread(file)
+    if img is None:
+        return None, None
+    resized = cv2.resize(img, (150, 150))
+    expanded = resized[np.newaxis, ...]
+    return resized, expanded
 
 def import_and_predict(image_data,model):
-    prediction = model.predict(image)
+    img, expanded_img = resize_img(image)
+    prediction = model.predict(expanded_img)[0]
     return prediction
 if file is None:
     st.text("Please upload an image file")
