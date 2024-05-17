@@ -26,12 +26,19 @@ file_datagen = ImageDataGenerator(rescale=1./255)
 
 
 def import_and_predict(image_data,model):
-    size = (50, 50)
-    image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
-    x = img_to_array(image)
-    x = x.reshape((1,) + x.shape)
-    new_image = file_datagen.flow(x, batch_size=1)
+    image_resized = image_data.resize((50, 50))
+    
+    # Convert image to array and reshape
+    x = img_to_array(image_resized)
+    x = np.expand_dims(x, axis=0)
+    
+    # Rescale the image using ImageDataGenerator
+    datagen = ImageDataGenerator(rescale=1./255)
+    new_image = datagen.flow(x, batch_size=1)
+    
+    # Make prediction
     prediction = model.predict(new_image)
+    return prediction
     return prediction
 if file is None:
     st.text("Please upload an image file")
