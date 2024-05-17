@@ -15,7 +15,7 @@ st.sidebar.success("Select a Page")
 @st.cache(allow_output_mutation=True)
 def load_model():
     try:
-        model = tf.keras.models.load_model('Streamlit/pages/final_model.h5')
+        model = tf.keras.models.load_model('Streamlit/pages/final_model_1.h5')
         string2 = "Model loaded successfully."
         st.success(string2)
         return model
