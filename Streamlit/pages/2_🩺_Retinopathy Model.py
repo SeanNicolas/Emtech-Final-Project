@@ -43,21 +43,18 @@ def import_and_predict(image_data, model):
 if file is None:
     st.text("Please upload an image file")
 else:
-    try:
-        image = Image.open(file).convert("RGB")
-        st.image(image, use_column_width=True)
-        image = np.array(image)
-        prediction = import_and_predict(image, model)
-        if prediction is not None:
-            class_names = ['No DR', 'DR']
-            if prediction > 0.5:
-                string = "OUTPUT : " + class_names[0]
-            else:
-                string = "OUTPUT : " + class_names[1]
-            st.success(string)
-    except Exception as e:
-        st.error("An error occurred while processing the image.")
-        st.error(str(e))
+    image = Image.open(file).convert("RGB")
+    st.image(image, use_column_width=True)
+    image = np.array(image)
+    prediction = import_and_predict(image, model)
+    if prediction is not None:
+        class_names = ['No DR', 'DR']
+        if prediction > 0.5:
+            string = "OUTPUT : " + class_names[0]
+        else:
+            string = "OUTPUT : " + class_names[1]
+        st.success(string)
+
 
 
 
