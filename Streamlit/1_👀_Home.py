@@ -8,4 +8,4 @@ st.set_page_config(
 st.title("What is Retinopathy?")
 st.sidebar.success("Select a Page")
 
-st.text("sinfjbwefbwfnjwjefnwef")
+st.text("Hello")
