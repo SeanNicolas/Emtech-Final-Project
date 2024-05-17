@@ -50,7 +50,7 @@ def import_and_predict(image, model):
 if file is None:
     st.text("Please upload an image file")
 else:
-    Image = Image.open(file)
+    image = Image.open(file)
     st.image(image,use_column_width=True)
     prediction = import_and_predict(image,model)
     class_names=['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
