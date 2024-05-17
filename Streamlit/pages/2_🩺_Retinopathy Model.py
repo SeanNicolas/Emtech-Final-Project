@@ -19,7 +19,7 @@ def load_model():
         string2 = "Model loaded successfully."
         st.success(string2)
         return model
-    except Exception as e:
+    except:
         string3 = "Error loading the model:"
         st.success(string3)
         return None
