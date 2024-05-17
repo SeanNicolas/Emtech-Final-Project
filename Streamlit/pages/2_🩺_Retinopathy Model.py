@@ -1,5 +1,8 @@
 import streamlit as st
 import tensorflow as tf
+import cv2
+from PIL import Image,ImageOps
+import numpy as np
 
 st.set_page_config(
     page_title= "Retinopathy",
@@ -18,14 +21,13 @@ st.write("""
 )
 file=st.file_uploader("Choose retina image from computer",type=["jpg","png", "jpeg"])
 
-import cv2
-from PIL import Image,ImageOps
-import numpy as np
 def import_and_predict(image_data,model):
     try:
         size = (150, 150)
         image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
         img = np.asarray(image)
+        if img.shape[2] == 4:  # Handle images with an alpha channel
+            img = img[:, :, :3]
         img_reshape = img[np.newaxis, ...]
         prediction = model.predict(img_reshape)
         return prediction
