@@ -36,7 +36,8 @@ def import_and_predict(image_data,model):
 if file is None:
     st.text("Please upload an image file")
 else:
-    image=Image.open(file).convert("RGB")
+    #image=Image.open(file).convert("RGB")
+    image = load_img(file)
     st.image(image,use_column_width=True)
     prediction=import_and_predict(image,model)
     class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
