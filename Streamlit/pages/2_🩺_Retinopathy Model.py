@@ -1,6 +1,6 @@
 import streamlit as st
 import tensorflow as tf
-import opencv-python-headless as cv2
+import cv2
 from PIL import Image,ImageOps
 import numpy as np
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
