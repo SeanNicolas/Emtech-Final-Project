@@ -1,7 +1,5 @@
 import streamlit as st
 import tensorflow as tf
-from signal import signal, SIGPIPE, SIG_DFL
-signal(SIGPIPE,SIG_DFL)
 
 st.set_page_config(
     page_title= "Retinopathy",
@@ -18,7 +16,7 @@ model=load_model()
 st.write("""
 # Diabetic Retinopathy Detection System"""
 )
-file=st.file_uploader("Choose retina image from computer",type=["jpg","png"])
+file=st.file_uploader("Choose retina image from computer",type=["jpg","png", "jpeg"])
 
 import cv2
 from PIL import Image,ImageOps
@@ -40,9 +38,10 @@ else:
     image=Image.open(file).convert("RGB")
     st.image(image,use_column_width=True)
     prediction=import_and_predict(image,model)
-    class_names=['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
-    string="OUTPUT : "+class_names[np.argmax(prediction)]
-    st.success(string)
+    if prediction is not None:
+        class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
+        string = "OUTPUT: " + class_names[np.argmax(prediction)]
+        st.success(string)
 # from tensorflow.keras.preprocessing.image import ImageDataGenerator
 # import scipy as sc
 
