@@ -13,7 +13,7 @@ st.sidebar.success("Select a Page")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('model3 (1).h5')
+  model=tf.keras.models.load_model('Streamlit/pages/model3 (1).h5')
   return model
 model=load_model()
 st.write("""
