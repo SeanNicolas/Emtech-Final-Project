@@ -24,7 +24,7 @@ def load_model():
         st.success(string3)
         return None
     
-model=load_model()
+model = load_model()
 
 st.write("""
 # Diabetic Retinopathy Detection System"""
