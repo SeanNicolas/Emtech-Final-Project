@@ -13,16 +13,16 @@ st.sidebar.success("Select a Page")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('Streamlit/pages/model3 (1).h5')
+  model=tf.keras.models.load_model('Streamlit/pages/final_model.h5')
   return model
 model=load_model()
 st.write("""
 # Diabetic Retinopathy Detection System"""
 )
-file = st.file_uploader("Choose retina image from computer",type=["jpg","png", "jpeg"])
+file = st.file_uploader("Choose retina image from computer",type=["jpg","png","jpeg"])
 
 def import_and_predict(image_data,model):
-    size = (150, 150)
+    size = (50, 50)
     image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
     img = np.asarray(image)
     img_reshape = img[np.newaxis, ...]
