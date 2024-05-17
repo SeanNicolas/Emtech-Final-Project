@@ -14,8 +14,15 @@ st.sidebar.success("Select a Page")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('Streamlit/pages/final_model.h5')
-  return model
+    try:
+        model = tf.keras.models.load_model('Streamlit/pages/final_model.h5')
+        string2 = "Model loaded successfully."
+        st.success(string2)
+        return model
+    except Exception as e:
+        string3 = "Error loading the model:", e)
+        st.success(string3)
+        return None
     
 model=load_model()
 
@@ -38,8 +45,11 @@ else:
     image = Image.open(file).convert("RGB")
     st.image(image,use_column_width=True)
     prediction=import_and_predict(image,model)
-    class_names=['0','1']
-    string="OUTPUT : "+class_names[np.argmax(prediction)]
+    class_names=['No DR','DR']
+    if prediction > 0.5:
+        string="OUTPUT : " + class_names[0]
+    else:
+        string="OUTPUT : " + class_names[1]
     st.success(string)
 
 
