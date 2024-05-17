@@ -42,7 +42,7 @@ else:
     prediction=import_and_predict(image,model)
     class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
     final_prediction = np.argmax(prediction)
-    if final_prediction > 0.5:
+    if final_prediction > 0.3:
         string = "OUTPUT: " + class_names[1]
         st.success(string)
     else:
