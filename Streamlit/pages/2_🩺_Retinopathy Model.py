@@ -1,23 +1,28 @@
 import streamlit as st
 import tensorflow as tf
 import cv2
-from PIL import Image,ImageOps
+from PIL import Image, ImageOps
 import numpy as np
 from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
 st.set_page_config(
-    page_title= "Retinopathy",
-    page_icon = "👁️"
+    page_title="Retinopathy",
+    page_icon="👁️"
 )
 
 st.sidebar.success("Select a Page")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = tf.keras.models.load_model('Streamlit/pages/final_model.h5')
-    string2 = "Model loaded successfully."
-    st.success(string2)
-    return model
+    try:
+        model = tf.keras.models.load_model('Streamlit/pages/final_model.h5')
+        string2 = "Model loaded successfully."
+        st.success(string2)
+        return model
+    except Exception as e:
+        st.error("Error loading the model. Please check if the model file exists and is valid.")
+        st.error(str(e))
+        return None
 
 model = load_model()
 
@@ -25,27 +30,98 @@ st.write("""
 # Diabetic Retinopathy Detection System"""
 )
 
-file = st.file_uploader("Choose retina image from computer",type=["jpg","png"])
+file = st.file_uploader("Choose retina image from computer", type=["jpg", "png"])
 
-def import_and_predict(image_data,model):
-    size=(50,50)
-    image=ImageOps.fit(image_data,size,Image.Resampling.LANCZOS)
-    img=np.asarray(image)
-    img_reshape=img[np.newaxis,...]
-    prediction=model.predict(img_reshape)
-    return prediction
+def import_and_predict(image_data, model):
+    try:
+        size = (50, 50)
+        image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
+        img = np.asarray(image)
+        img_reshape = img[np.newaxis, ...]
+        prediction = model.predict(img_reshape)
+        return prediction
+    except Exception as e:
+        st.error("Error processing the image. Please check if the image is valid.")
+        st.error(str(e))
+        return None
+
 if file is None:
     st.text("Please upload an image file")
 else:
-    image = Image.open(file).convert("RGB")
-    st.image(image,use_column_width=True)
-    prediction=import_and_predict(image,model)
-    class_names=['No DR','DR']
-    if prediction > 0.5:
-        string="OUTPUT : " + class_names[0]
-    else:
-        string="OUTPUT : " + class_names[1]
-    st.success(string)
+    try:
+        image = Image.open(file).convert("RGB")
+        st.image(image, use_column_width=True)
+        prediction = import_and_predict(image, model)
+        if prediction is not None:
+            class_names = ['No DR', 'DR']
+            if prediction > 0.5:
+                string = "OUTPUT : " + class_names[0]
+            else:
+                string = "OUTPUT : " + class_names[1]
+            st.success(string)
+    except Exception as e:
+        st.error("An error occurred while processing the image.")
+        st.error(str(e))
+
+
+
+
+
+
+
+
+
+
+
+
+# import streamlit as st
+# import tensorflow as tf
+# import cv2
+# from PIL import Image,ImageOps
+# import numpy as np
+# from tensorflow.keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+
+# st.set_page_config(
+#     page_title= "Retinopathy",
+#     page_icon = "👁️"
+# )
+
+# st.sidebar.success("Select a Page")
+
+# @st.cache(allow_output_mutation=True)
+# def load_model():
+#     model = tf.keras.models.load_model('Streamlit/pages/final_model.h5')
+#     string2 = "Model loaded successfully."
+#     st.success(string2)
+#     return model
+
+# model = load_model()
+
+# st.write("""
+# # Diabetic Retinopathy Detection System"""
+# )
+
+# file = st.file_uploader("Choose retina image from computer",type=["jpg","png"])
+
+# def import_and_predict(image_data,model):
+#     size=(50,50)
+#     image=ImageOps.fit(image_data,size,Image.Resampling.LANCZOS)
+#     img=np.asarray(image)
+#     img_reshape=img[np.newaxis,...]
+#     prediction=model.predict(img_reshape)
+#     return prediction
+# if file is None:
+#     st.text("Please upload an image file")
+# else:
+#     image = Image.open(file).convert("RGB")
+#     st.image(image,use_column_width=True)
+#     prediction=import_and_predict(image,model)
+#     class_names=['No DR','DR']
+#     if prediction > 0.5:
+#         string="OUTPUT : " + class_names[0]
+#     else:
+#         string="OUTPUT : " + class_names[1]
+#     st.success(string)
 
 
 
