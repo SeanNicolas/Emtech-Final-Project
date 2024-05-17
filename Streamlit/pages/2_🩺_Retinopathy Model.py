@@ -1,5 +1,7 @@
 import streamlit as st
 import tensorflow as tf
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL)
 
 st.set_page_config(
     page_title= "Retinopathy",
