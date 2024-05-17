@@ -14,23 +14,18 @@ st.sidebar.success("Select a Page")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-    try:
-        model = tf.keras.models.load_model('Streamlit/pages/final_model.h5')
-        string2 = "Model loaded successfully."
-        st.success(string2)
-        return model
-    except:
-        string3 = "Error loading the model:"
-        st.success(string3)
-        return None
-    
+    model = tf.keras.models.load_model('Streamlit/pages/final_model.h5')
+    string2 = "Model loaded successfully."
+    st.success(string2)
+    return model
+
 model = load_model()
 
 st.write("""
 # Diabetic Retinopathy Detection System"""
 )
 
-file = st.file_uploader("Choose retina image from computer",type=["jpg","png","jpeg"])
+file = st.file_uploader("Choose retina image from computer",type=["jpg","png"])
 
 def import_and_predict(image_data,model):
     size=(50,50)
