@@ -25,8 +25,7 @@ def import_and_predict(image_data,model):
     size = (50, 50)
     image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
     img = np.asarray(image)
-    img_reshape = img[np.newaxis, ...]
-    prediction = model.predict(img_reshape)
+    prediction = model.predict(img)
     return prediction
 if file is None:
     st.text("Please upload an image file")
