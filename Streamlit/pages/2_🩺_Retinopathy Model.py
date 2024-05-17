@@ -26,11 +26,6 @@ file_datagen = ImageDataGenerator(rescale=1./255)
 
 
 def import_and_predict(image_data,model):
-    image_resized = image_data.resize((50, 50))
-    # Convert image to array and normalize
-    x = img_to_array(image_resized) / 255.0
-    # Add batch dimension
-    # Make prediction
     prediction = model.predict(x)
     return prediction
 if file is None:
