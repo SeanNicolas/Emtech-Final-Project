@@ -41,15 +41,14 @@ else:
     st.image(image,use_column_width=True)
     prediction=import_and_predict(image,model)
     class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
-    threshold = 0.5  # You can adjust this threshold if necessary
-    if prediction[0][0] >= threshold:
-        result = class_names[1]
+    final_prediction = np.argmax(prediction)
+    if final_prediction > 0.5:
+        string = "OUTPUT: " + class_names[1]
+        st.success(string)
     else:
-        result = class_names[0]
-    string = "OUTPUT: " + result
-    st.success(string)
-    # string = "OUTPUT: " + class_names[np.argmax(prediction)]
-    # st.success(string)
+        string = "OUTPUT: " + class_names[0]
+        st.success(string)
+        
 # from tensorflow.keras.preprocessing.image import ImageDataGenerator
 # import scipy as sc
 
