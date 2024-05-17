@@ -36,7 +36,7 @@ def import_and_predict(image_data, model):
     try:
         size = (50, 50)
         image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
-        img = np.asarray(image)
+        img = np.array(image)
         img_reshape = img[np.newaxis, ...]
         prediction = model.predict(img_reshape)
         return prediction
