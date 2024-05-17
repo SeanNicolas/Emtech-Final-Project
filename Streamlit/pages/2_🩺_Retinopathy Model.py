@@ -26,19 +26,16 @@ file_datagen = ImageDataGenerator(rescale=1./255)
 
 
 def import_and_predict(image_data,model):
-    image_resized = image_data.resize((50, 50))
+     image_resized = image_data.resize((50, 50))
     
-    # Convert image to array and reshape
-    x = img_to_array(image_resized)
+    # Convert image to array and normalize
+    x = img_to_array(image_resized) / 255.0
+    
+    # Add batch dimension
     x = np.expand_dims(x, axis=0)
     
-    # Rescale the image using ImageDataGenerator
-    datagen = ImageDataGenerator(rescale=1./255)
-    new_image = datagen.flow(x, batch_size=1)
-    
     # Make prediction
-    prediction = model.predict(new_image)
-    return prediction
+    prediction = model.predict(x)
     return prediction
 if file is None:
     st.text("Please upload an image file")
