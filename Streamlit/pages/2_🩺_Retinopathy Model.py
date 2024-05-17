@@ -39,12 +39,9 @@ import numpy as np
 #     st.success(string)
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import scipy
-new_shape = (150,150,3)
-IMAGE_HEIGHT = 150
-IMAGE_WIDTH = 150
-
 
 def import_and_predict(image, model):
+    new_shape = (150,150,3)
     X_data_resized = [scipy.misc.imresize(image, new_shape) for image in X_data]
     img = np.asarray(X_data_resized)
     img_reshape = img[np.newaxis,...]
