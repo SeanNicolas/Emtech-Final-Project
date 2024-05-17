@@ -15,7 +15,7 @@ def load_model():
   return model
 model=load_model()
 st.write("""
-# Plant Leaf Detection System"""
+# Diabetic Retinopathy Detection System"""
 )
 file=st.file_uploader("Choose retina imageg from computer",type=["jpg","png"])
 
