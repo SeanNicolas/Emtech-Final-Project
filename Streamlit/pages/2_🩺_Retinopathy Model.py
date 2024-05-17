@@ -16,13 +16,13 @@ model=load_model()
 st.write("""
 # Diabetic Retinopathy Detection System"""
 )
-file=st.file_uploader("Choose retina imageg from computer",type=["jpg","png"])
+file=st.file_uploader("Choose retina image from computer",type=["jpg","png"])
 
 import cv2
 from PIL import Image,ImageOps
 import numpy as np
 def import_and_predict(image_data,model):
-    size=(64,64)
+    size=(150,150)
     image=ImageOps.fit(image_data,size,Image.ANTIALIAS)
     img=np.asarray(image)
     img_reshape=img[np.newaxis,...]
