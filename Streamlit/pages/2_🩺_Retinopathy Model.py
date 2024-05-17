@@ -21,18 +21,9 @@ st.write("""
 )
 file=st.file_uploader("Choose retina image from computer",type=["jpg","png", "jpeg"])
 
-def retry_on_connectionerror(f, max_retries=5):
-  retries = 0
-  while retries < max_retries:
-    try:
-      return f()
-    except ConnectionError:
-      retries += 1
-  raise Exception("Maximum retries exceeded")
-    
 def import_and_predict(image_data,model):
     try:
-        size = (150, 150)
+        size = (50, 50)
         image = ImageOps.fit(image_data, size, Image.Resampling.LANCZOS)
         img = np.asarray(image)
         if img.shape[2] == 4:  # Handle images with an alpha channel
@@ -49,7 +40,6 @@ else:
     image=Image.open(file).convert("RGB")
     st.image(image,use_column_width=True)
     prediction=import_and_predict(image,model)
-    retry_on_connectionerror(prediction)
     class_names = ['No Diabetic Retinopathy', 'Signs of Diabetic Retinopathy']
     string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(string)
