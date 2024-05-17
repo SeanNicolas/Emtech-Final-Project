@@ -6,7 +6,6 @@ st.set_page_config(
     page_icon = "👁️"
 )
 
-st.title("Main Page")
 st.sidebar.success("Select a Page")
 
 @st.cache(allow_output_mutation=True)
@@ -15,7 +14,7 @@ def load_model():
   return model
 model=load_model()
 st.write("""
-# Plant Leaf Detection System"""
+# Diabetic Retinopathy Detection System"""
 )
 file=st.file_uploader("Choose retina imageg from computer",type=["jpg","png"])
 
